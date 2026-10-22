@@ -41,7 +41,7 @@ public class TotemOfRecalling {
 
 
     private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(TotemOfRecalling.MODID);
-    public static final Supplier<Item> TOTEM_OF_RECALLING = ITEMS.registerSimpleItem("totem_of_recalling", props -> props.stacksTo(1).enchantable(1).rarity(Rarity.RARE));
+    public static final Supplier<Item> TOTEM_OF_RECALLING = ITEMS.registerItem("totem_of_recalling", TotemOfRecallingItem::new, new Item.Properties().stacksTo(1).rarity(Rarity.RARE));
 
     public TotemOfRecalling(IEventBus modEventBus, ModContainer modContainer) {
         ITEMS.register(modEventBus);
@@ -58,7 +58,7 @@ public class TotemOfRecalling {
     public static void onTotemUse(PlayerInteractEvent.RightClickItem event) {
         ItemStack stack = event.getItemStack();
 
-        if(stack.is(TOTEM_OF_RECALLING.get()) && !event.getEntity().getCooldowns().isOnCooldown(stack)) {
+        if(stack.is(TOTEM_OF_RECALLING.get()) && !event.getEntity().getCooldowns().isOnCooldown(stack.getItem())) {
             if(event.getEntity().isShiftKeyDown() && event.getLevel().isClientSide()) {
                 int expLevels = event.getEntity().experienceLevel;
                 Networking.sendToServer(new RecallPacket(expLevels));

@@ -2,11 +2,21 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "P": "minecraft:ender_pearl",
-    "X": "minecraft:experience_bottle",
-    "B": "minecraft:blaze_rod",
-    "C": "minecraft:end_crystal",
-    "O": "minecraft:obsidian"
+    "P": {
+      "item": "minecraft:ender_pearl"
+    },
+    "X": {
+      "item": "minecraft:experience_bottle"
+    },
+    "B": {
+      "item": "minecraft:blaze_rod"
+    },
+    "C": {
+      "item": "minecraft:end_crystal"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    }
   },
   "pattern": [
     "PXP",
@@ -14,6 +24,7 @@
     " O "
   ],
   "result": {
+    "count": 1,
     "id": "totemofrecalling:totem_of_recalling"
   }
 }

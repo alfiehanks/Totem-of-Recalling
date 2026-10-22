@@ -23,7 +23,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.portal.TeleportTransition;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 import org.jline.utils.Colors;
@@ -44,7 +44,7 @@ public record RecallPacket(int expLevels) implements NetworkPacket<RecallPacket>
             ServerPlayer player = (ServerPlayer) context.player();
             InteractionHand hand = player.getMainHandItem().is(TotemOfRecalling.TOTEM_OF_RECALLING.get()) ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
             ItemStack totem = player.getItemInHand(hand);
-            if(!totem.is(TotemOfRecalling.TOTEM_OF_RECALLING.get()) || player.getCooldowns().isOnCooldown(totem) || RecallManager.isRecalling(player)) return;
+            if(!totem.is(TotemOfRecalling.TOTEM_OF_RECALLING.get()) || player.getCooldowns().isOnCooldown(totem.getItem()) || RecallManager.isRecalling(player)) return;
 
             if(player.experienceLevel >= RecallManager.getExpCost(player, totem) || player.hasInfiniteMaterials()) {
                 RecallManager.start(player, hand);
@@ -55,11 +55,11 @@ public record RecallPacket(int expLevels) implements NetworkPacket<RecallPacket>
     public static void playEffects(ServerPlayer player) {
         Networking.sendToClient(player, TotemAnimationPacket.INSTANCE);
 
-        ServerLevel level = player.level();
+        ServerLevel level = (ServerLevel) player.level();
 
         int cloudParticles = 50;
         level.sendParticles(
-                new DustParticleOptions(0xA020F0, 4.0f),
+                new DustParticleOptions(Vec3.fromRGB24(0xA020F0).toVector3f(), 4.0f),
 
                 player.getX(), player.getY(0.5), player.getZ(),
                 cloudParticles,

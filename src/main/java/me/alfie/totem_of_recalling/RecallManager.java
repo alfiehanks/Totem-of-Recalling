@@ -5,13 +5,14 @@ import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetExperiencePacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.portal.TeleportTransition;
+import net.minecraft.world.level.portal.DimensionTransition;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
@@ -53,7 +54,8 @@ public class RecallManager {
                 SoundSource.MASTER, 0.5f, 1.5f);
 
         int portalParticles = 100;
-        player.level().sendParticles(
+        ServerLevel level = (ServerLevel) player.level();
+        level.sendParticles(
                 ParticleTypes.PORTAL,
                 player.getX(), player.getY(0.5), player.getZ(),
                 portalParticles,
@@ -88,7 +90,7 @@ public class RecallManager {
             if(Config.CONFIG.REQUIRE_STANDING_STILL.get() && !enderstep && player.distanceToSqr(pending.startPos) > MOVE_TOLERANCE * MOVE_TOLERANCE) {
                 it.remove();
                 resyncXpBar(player);
-                player.sendOverlayMessage(Component.translatable("totemofrecalling.message.recall_cancelled_moved").withStyle(ChatFormatting.RED));
+                player.displayClientMessage(Component.translatable("totemofrecalling.message.recall_cancelled_moved").withStyle(ChatFormatting.RED), true);
 
                 player.level().playSound(null, player.blockPosition(), SoundEvents.ENDERMAN_HURT,
                         SoundSource.MASTER, 0.5f, 1.5f);
@@ -120,14 +122,14 @@ public class RecallManager {
             return;
         }
 
-        TeleportTransition transition = player.findRespawnPositionAndUseSpawnBlock(false, TeleportTransition.DO_NOTHING);
-        player.teleport(transition);
+        DimensionTransition transition = player.findRespawnPositionAndUseSpawnBlock(false, DimensionTransition.DO_NOTHING);
+        player.changeDimension(transition);
 
         RecallPacket.playEffects(player);
 
         if(!player.hasInfiniteMaterials()) {
             int riftRecovery = ModEnchantments.getLevel(player, ModEnchantments.RIFT_RECOVERY, totem);
-            player.getCooldowns().addCooldown(totem, Math.round(Config.CONFIG.COOLDOWN_SECONDS.get() * 20 * reduction(riftRecovery)));
+            player.getCooldowns().addCooldown(totem.getItem(),Math.round(Config.CONFIG.COOLDOWN_SECONDS.get() * 20 * reduction(riftRecovery)));
             player.giveExperienceLevels(-cost);
         }
 
