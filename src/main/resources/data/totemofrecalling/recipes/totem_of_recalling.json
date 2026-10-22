@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "minecraft:ender_pearl"
+    },
+    "X": {
+      "item": "minecraft:experience_bottle"
+    },
+    "B": {
+      "item": "minecraft:blaze_rod"
+    },
+    "C": {
+      "item": "minecraft:end_crystal"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "pattern": [
+    "PXP",
+    "BCB",
+    " O "
+  ],
+  "result": {
+    "count": 1,
+    "item": "totemofrecalling:totem_of_recalling"
+  }
+}
