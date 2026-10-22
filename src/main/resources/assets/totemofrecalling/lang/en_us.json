@@ -1,13 +1,20 @@
 {
-  "itemGroup.totemofrecalling": "Example Mod Tab",
-  "block.totemofrecalling.example_block": "Example Block",
-  "item.totemofrecalling.example_item": "Example Item",
+  "item.totemofrecalling.totem_of_recalling": "Totem of Recalling",
 
-  "totemofrecalling.configuration.title": "Totem Of Recalling Configs",
-  "totemofrecalling.configuration.section.totemofrecalling.common.toml": "Totem Of Recalling Configs",
-  "totemofrecalling.configuration.section.totemofrecalling.common.toml.title": "Totem Of Recalling Configs",
-  "totemofrecalling.configuration.items": "Item List",
-  "totemofrecalling.configuration.logDirtBlock": "Log Dirt Block",
-  "totemofrecalling.configuration.magicNumberIntroduction": "Magic Number Text",
-  "totemofrecalling.configuration.magicNumber": "Magic Number"
+  "enchantment.totemofrecalling.enderstep": "Enderstep",
+  "enchantment.totemofrecalling.rift_recovery": "Rift Recovery",
+  "enchantment.totemofrecalling.blinking": "Blinking",
+  "enchantment.totemofrecalling.draconic_efficiency": "Draconic Efficiency",
+
+  "totemofrecalling.config.exp_levels_cost": "Experience Levels Cost",
+  "totemofrecalling.config.cooldown_seconds": "Cooldown Seconds",
+  "totemofrecalling.config.wait_seconds": "Wait Seconds",
+  "totemofrecalling.config.require_standing_still": "Require Standing Still",
+
+  "totemofrecalling.message.recall_cancelled_moved": "You moved, recall cancelled.",
+
+  "enchantment.totemofrecalling.blinking.desc": "Cast wait time is reduced 10% per level.",
+  "enchantment.totemofrecalling.draconic_efficiency.desc": "Experience level cost per cast is halved.",
+  "enchantment.totemofrecalling.enderstep.desc": "Moving no longer cancels your recall",
+  "enchantment.totemofrecalling.rift_recovery.desc": "Cooldown is reduced by 10% per level."
 }

@@ -1,0 +1,7 @@
+{
+  "levels": {
+    "1": [{"item_cost": {"item": "minecraft:respawn_anchor", "count": 1}}],
+    "2": [{"item_cost": {"item": "minecraft:end_crystal", "count": 1}}],
+    "3": [{"item_cost": {"item": "minecraft:recovery_compass", "count": 1}}]
+  }
+}
