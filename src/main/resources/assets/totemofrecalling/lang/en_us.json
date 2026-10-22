@@ -1,0 +1,13 @@
+{
+  "itemGroup.totemofrecalling": "Example Mod Tab",
+  "block.totemofrecalling.example_block": "Example Block",
+  "item.totemofrecalling.example_item": "Example Item",
+
+  "totemofrecalling.configuration.title": "Totem Of Recalling Configs",
+  "totemofrecalling.configuration.section.totemofrecalling.common.toml": "Totem Of Recalling Configs",
+  "totemofrecalling.configuration.section.totemofrecalling.common.toml.title": "Totem Of Recalling Configs",
+  "totemofrecalling.configuration.items": "Item List",
+  "totemofrecalling.configuration.logDirtBlock": "Log Dirt Block",
+  "totemofrecalling.configuration.magicNumberIntroduction": "Magic Number Text",
+  "totemofrecalling.configuration.magicNumber": "Magic Number"
+}
