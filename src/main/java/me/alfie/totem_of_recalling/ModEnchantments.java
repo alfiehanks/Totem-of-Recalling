@@ -14,7 +14,7 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> ENDERSTEP = key("enderstep");
     public static final ResourceKey<Enchantment> RIFT_RECOVERY = key("rift_recovery");
     public static final ResourceKey<Enchantment> BLINKING = key("blinking");
-    public static final ResourceKey<Enchantment> DRACONIC_EFFICIENCY = key("draconic_efficiency.json");
+    public static final ResourceKey<Enchantment> DRACONIC_EFFICIENCY = key("draconic_efficiency");
 
     private static ResourceKey<Enchantment> key(String name) {
         return ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(TotemOfRecalling.MODID, name));
