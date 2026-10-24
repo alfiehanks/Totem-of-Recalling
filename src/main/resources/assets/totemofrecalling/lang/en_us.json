@@ -10,8 +10,14 @@
   "totemofrecalling.config.cooldown_seconds": "Cooldown Seconds",
   "totemofrecalling.config.wait_seconds": "Wait Seconds",
   "totemofrecalling.config.require_standing_still": "Require Standing Still",
+  "totemofrecalling.config.requires_smithing": "Requires Smithing",
 
   "totemofrecalling.message.recall_cancelled_moved": "You moved, recall cancelled.",
+  "totemofrecalling.message.recall_cancelled_unheld": "You stopped holding the totem, recall cancelled.",
+  "totemofrecalling.message.totem_inactive": "The totem is inactive, infuse it at a smithing table.",
+
+  "totemofrecalling.tooltip.activated": "Activated",
+  "totemofrecalling.tooltip.inactivated": "Inactivated",
 
   "enchantment.totemofrecalling.blinking.desc": "Cast wait time is reduced 10% per level.",
   "enchantment.totemofrecalling.draconic_efficiency.desc": "Experience level cost per cast is halved.",

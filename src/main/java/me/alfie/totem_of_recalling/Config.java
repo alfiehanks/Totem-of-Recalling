@@ -12,6 +12,7 @@ public class Config {
     public final ModConfigSpec.ConfigValue<Integer> COOLDOWN_SECONDS;
     public final ModConfigSpec.ConfigValue<Integer> WAIT_SECONDS;
     public final ModConfigSpec.ConfigValue<Boolean> REQUIRE_STANDING_STILL;
+    public final ModConfigSpec.ConfigValue<Boolean> REQUIRES_SMITHING;
 
     static  {
         Pair<Config, ModConfigSpec> pair = new ModConfigSpec.Builder().configure(Config::new);
@@ -40,5 +41,10 @@ public class Config {
                 .comment("If true, moving during the wait time cancels the recall. Note: there is an enchantment that removes this requirement.")
                 .translation("totemofrecalling.config.require_standing_still")
                 .define("Require Standing Still", true);
+
+        REQUIRES_SMITHING = builder
+                .comment("If true, the totem becomes inactive after use and must be infused at a smithing table before it can be used again. The infusion item is set by the totemofrecalling:totem_of_recalling_infusion recipe.")
+                .translation("totemofrecalling.config.requires_smithing")
+                .define("Requires Smithing", true);
     }
 }

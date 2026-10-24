@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:smithing_transform",
+  "base": {
+    "neoforge:ingredient_type": "neoforge:components",
+    "items": "totemofrecalling:totem_of_recalling",
+    "components": {
+      "totemofrecalling:activated": false
+    }
+  },
+  "addition": "minecraft:ender_eye",
+  "result": {
+    "id": "totemofrecalling:totem_of_recalling",
+    "components": {
+      "totemofrecalling:activated": true
+    }
+  }
+}

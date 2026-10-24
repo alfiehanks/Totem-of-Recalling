@@ -84,6 +84,17 @@ public class RecallManager {
                 continue;
             }
 
+            if(!player.getItemInHand(pending.hand).is(TotemOfRecalling.TOTEM_OF_RECALLING.get())) {
+                it.remove();
+                resyncXpBar(player);
+                player.sendOverlayMessage(Component.translatable("totemofrecalling.message.recall_cancelled_unheld").withStyle(ChatFormatting.RED));
+
+                player.level().playSound(null, player.blockPosition(), SoundEvents.ENDERMAN_HURT,
+                        SoundSource.MASTER, 0.5f, 1.5f);
+
+                continue;
+            }
+
             boolean enderstep = ModEnchantments.getLevel(player, ModEnchantments.ENDERSTEP, player.getItemInHand(pending.hand)) > 0;
             if(Config.CONFIG.REQUIRE_STANDING_STILL.get() && !enderstep && player.distanceToSqr(pending.startPos) > MOVE_TOLERANCE * MOVE_TOLERANCE) {
                 it.remove();
@@ -114,7 +125,7 @@ public class RecallManager {
         // Re-check at the end of the wait, the player may have swapped items or spent levels
         ItemStack totem = player.getItemInHand(hand);
         int cost = getExpCost(player, totem);
-        if(!totem.is(TotemOfRecalling.TOTEM_OF_RECALLING.get())
+        if(!totem.is(TotemOfRecalling.TOTEM_OF_RECALLING.get()) || !TotemOfRecalling.isActivated(totem)
                 || (player.experienceLevel < cost && !player.hasInfiniteMaterials())) {
             resyncXpBar(player);
             return;
@@ -129,6 +140,10 @@ public class RecallManager {
             int riftRecovery = ModEnchantments.getLevel(player, ModEnchantments.RIFT_RECOVERY, totem);
             player.getCooldowns().addCooldown(totem, Math.round(Config.CONFIG.COOLDOWN_SECONDS.get() * 20 * reduction(riftRecovery)));
             player.giveExperienceLevels(-cost);
+
+            if(Config.CONFIG.REQUIRES_SMITHING.get()) {
+                totem.set(TotemOfRecalling.ACTIVATED.get(), false);
+            }
         }
 
         resyncXpBar(player);

@@ -1,7 +1,21 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "totemofrecalling:item/totem_of_recalling"
+    "type": "minecraft:select",
+    "property": "minecraft:component",
+    "component": "totemofrecalling:activated",
+    "cases": [
+      {
+        "when": false,
+        "model": {
+          "type": "minecraft:model",
+          "model": "totemofrecalling:item/totem_of_recalling_inactive"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "totemofrecalling:item/totem_of_recalling"
+    }
   },
   "hand_animation_on_swap": true,
   "oversized_in_gui": false,

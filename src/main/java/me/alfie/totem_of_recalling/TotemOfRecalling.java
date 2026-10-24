@@ -2,6 +2,9 @@ package me.alfie.totem_of_recalling;
 
 import me.alfie.alfinolib.networking.NetworkRegisterEvent;
 import me.alfie.alfinolib.networking.Networking;
+import com.mojang.serialization.Codec;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import org.slf4j.Logger;
@@ -40,10 +43,16 @@ public class TotemOfRecalling {
     public static final Logger LOGGER = LogUtils.getLogger();
 
 
+    private static final DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, TotemOfRecalling.MODID);
+    // Whether the totem can be used, it becomes inactive after use when REQUIRES_SMITHING is enabled
+    public static final Supplier<DataComponentType<Boolean>> ACTIVATED = DATA_COMPONENTS.registerComponentType("activated",
+            builder -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL));
+
     private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(TotemOfRecalling.MODID);
-    public static final Supplier<Item> TOTEM_OF_RECALLING = ITEMS.registerSimpleItem("totem_of_recalling", props -> props.stacksTo(1).enchantable(1).rarity(Rarity.RARE));
+    public static final Supplier<Item> TOTEM_OF_RECALLING = ITEMS.registerSimpleItem("totem_of_recalling", props -> props.stacksTo(1).enchantable(1).rarity(Rarity.RARE).component(ACTIVATED.get(), true));
 
     public TotemOfRecalling(IEventBus modEventBus, ModContainer modContainer) {
+        DATA_COMPONENTS.register(modEventBus);
         ITEMS.register(modEventBus);
 
         modEventBus.addListener(TotemOfRecalling::registerPackets);
@@ -64,6 +73,10 @@ public class TotemOfRecalling {
                 Networking.sendToServer(new RecallPacket(expLevels));
             }
         }
+    }
+
+    public static boolean isActivated(ItemStack stack) {
+        return stack.getOrDefault(ACTIVATED.get(), true);
     }
 
     public static void buildCreative(BuildCreativeModeTabContentsEvent event) {

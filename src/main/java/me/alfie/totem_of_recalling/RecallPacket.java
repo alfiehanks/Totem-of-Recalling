@@ -13,6 +13,7 @@ import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -45,6 +46,11 @@ public record RecallPacket(int expLevels) implements NetworkPacket<RecallPacket>
             InteractionHand hand = player.getMainHandItem().is(TotemOfRecalling.TOTEM_OF_RECALLING.get()) ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
             ItemStack totem = player.getItemInHand(hand);
             if(!totem.is(TotemOfRecalling.TOTEM_OF_RECALLING.get()) || player.getCooldowns().isOnCooldown(totem) || RecallManager.isRecalling(player)) return;
+
+            if(!TotemOfRecalling.isActivated(totem)) {
+                player.sendOverlayMessage(Component.translatable("totemofrecalling.message.totem_inactive").withStyle(ChatFormatting.RED));
+                return;
+            }
 
             if(player.experienceLevel >= RecallManager.getExpCost(player, totem) || player.hasInfiniteMaterials()) {
                 RecallManager.start(player, hand);
